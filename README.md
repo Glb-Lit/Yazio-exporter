@@ -1,61 +1,75 @@
-# Yazio CSV Exporter
+# Yazio Desktop Exporter (MVP)
 
-This script allows you to export nutrition and product data from your Yazio account using the [Yazio Exporter](https://github.com/funmelon64/Yazio-Exporter) and convert it into detailed and well-structured CSV files.
+Windows desktop app that runs the [Yazio Exporter](https://github.com/funmelon64/Yazio-Exporter) pipeline and produces a single Excel workbook.
 
-It automatically calculates total calories, protein, fat, and carbohydrates per entry and summarizes your data by meal and day.
+## What You Get
 
----
+- Desktop UI on PySide6 (no manual terminal steps)
+- Export by date range with your Yazio credentials
+- One `.xlsx` output with sheets:
+  - `nutrition_log`
+  - `meal_summary`
+  - `daily_summary`
+- Basic formatting in Excel:
+  - auto column widths
+  - header row freeze
+  - filters enabled
 
-## ✅ Features
+## Quick Start (Developer Run)
 
-- 🔐 Login using your Yazio credentials
-- 📦 Export `days.json` and `products.json` via [Yazio Exporter](https://github.com/funmelon64/Yazio-Exporter)
-- 🔢 Calculates:
-  - Total calories per product (based on grams consumed)
-  - Total protein, fat, and carbs per product
-  - Daily nutrition summary
-  - Calories per meal and day
-- 🧾 Generates three CSV files:
-  - `nutrition_log.csv` → All food entries with macros
-  - `meal_summary.csv` → Calories by meal (breakfast, lunch, dinner, snacks)
-  - `daily_summary.csv` → Daily totals of calories, protein, fat, and carbs
-
----
-
-## 🚀 How to Use
-
-1. Clone or download this repository
-2. Build the [Yazio Exporter](https://github.com/funmelon64/Yazio-Exporter) and adjust the path inside `yazio_export_to_csv.py`). 
-3. Run the script:
+1. Install Python 3.11+ on Windows.
+2. Build/download `YazioExport.exe` from [Yazio Exporter](https://github.com/funmelon64/Yazio-Exporter).
+3. Install dependencies:
 
 ```bash
-python3 yazio_export_to_csv.py
+pip install -r requirements.txt
 ```
-4. Enter your Yazio login credentials when prompted
-5. After completion, the script will generate the following CSV files:
 
-nutrition_log.csv
+4. Start the desktop app:
 
-meal_summary.csv
+```bash
+python -m app.main
+```
 
-daily_summary.csv
+5. Put `YazioExport.exe` in `exporter/YazioExport-windows/` next to the project (or next to the built `.exe`), then in the app enter your Yazio email/password and where to save the `.xlsx` file. The app will export from the beginning of the current year up to today.
 
----
+## Security and Data Handling
 
-## 🖥 Requirements
-Python 3
-No external Python libraries needed (no pandas, no Excel modules)
+- Credentials are entered in UI and not stored in repository files.
+- Intermediate files from the upstream exporter (`token.txt`, `days.json`, `products.json`) are written to a fixed workspace under `data/runtime/work/` (relative to the app / project root). The Yazio exporter expects stable paths; they are not deleted automatically after export (you can remove them manually). They are ignored by git via `.gitignore`.
+- Do not log or commit token contents; the app only reports progress messages, not file payloads.
 
-## 📄 License
-MIT – feel free to use, fork, improve or share.
+## Windows Release Build (GitHub Actions)
 
-## 🙌 Credits
-Thanks to the awesome open-source project Yazio Exporter for enabling data access.
+Workflow: `.github/workflows/release-windows.yml`
 
-## ⚠️ Disclaimer
+- Runs on `windows-latest`
+- Builds standalone app with PyInstaller
+- Uploads build artifact for every run
+- Publishes release asset automatically on tag push (`v*`)
 
-This tool is not officially supported, affiliated with, or endorsed by Yazio.  
-It uses the [Yazio Exporter](https://github.com/funmelon64/Yazio-Exporter), an unofficial open-source utility, to access user data.  
-Yazio does not provide public documentation for this export functionality, and the structure of exported data may change without notice.
+## Known Issues
 
-Use at your own risk.
+- Export reliability depends on upstream `YazioExport.exe` behavior and API compatibility.
+- Some product names can still contain encoding artifacts from source data.
+- Nutrient totals are calculated from per-gram values in exported product data and may differ slightly from Yazio app UI totals.
+- Large date ranges may take noticeable time due to upstream exporter calls.
+
+## Project Structure
+
+- `app/main.py` - desktop app entrypoint
+- `app/paths.py` - project root and `data/runtime/work` (dev vs frozen exe)
+- `app/ui/main_window.py` - PySide6 UI
+- `app/services/export_service.py` - orchestration of external exporter + report generation
+- `app/services/parser_service.py` - JSON parsing and summary aggregation
+- `app/services/excel_service.py` - single workbook generation
+- `data/runtime/work/` - local workspace for exporter output (gitignored except `.gitkeep`)
+
+## License
+
+MIT
+
+## Disclaimer
+
+This tool is not officially supported, affiliated with, or endorsed by Yazio.
+It uses the unofficial [Yazio Exporter](https://github.com/funmelon64/Yazio-Exporter), and upstream data format/API may change without notice.

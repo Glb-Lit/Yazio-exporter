@@ -1,0 +1,26 @@
+.venv/
+__pycache__/
+*.pyc
+.idea/
+
+# Local Yazio exporter binary (download / place here; do not commit)
+exporter/
+
+# Runtime workspace (token, JSON from YazioExport — not for git)
+data/runtime/work/*
+!data/runtime/work/.gitkeep
+
+# Legacy / accidental root-level export files
+token.txt
+days.json
+products.json
+nutrition_log.csv
+meal_summary.csv
+daily_summary.csv
+REsults/
+*.xlsx
+
+# Build artifacts
+build/
+dist/
+*.spec
