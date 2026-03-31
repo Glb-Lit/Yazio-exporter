@@ -71,5 +71,13 @@ MIT
 
 ## Disclaimer
 
-This tool is not officially supported, affiliated with, or endorsed by Yazio.
-It uses the unofficial [Yazio Exporter](https://github.com/funmelon64/Yazio-Exporter), and upstream data format/API may change without notice.
+## 🙌 Credits
+Thanks to the awesome open-source project Yazio Exporter for enabling data access.
+
+## ⚠️ Disclaimer
+
+This tool is not officially supported, affiliated with, or endorsed by Yazio.  
+It uses the [Yazio Exporter](https://github.com/funmelon64/Yazio-Exporter), an unofficial open-source utility, to access user data.  
+Yazio does not provide public documentation for this export functionality, and the structure of exported data may change without notice.
+
+Use at your own risk.
