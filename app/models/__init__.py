@@ -1,0 +1,1 @@
+"""App domain models."""
