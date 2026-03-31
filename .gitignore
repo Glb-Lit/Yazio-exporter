@@ -3,9 +3,6 @@ __pycache__/
 *.pyc
 .idea/
 
-# Local Yazio exporter binary (download / place here; do not commit)
-exporter/
-
 # Runtime workspace (token, JSON from YazioExport — not for git)
 data/runtime/work/*
 !data/runtime/work/.gitkeep

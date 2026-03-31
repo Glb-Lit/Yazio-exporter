@@ -22,14 +22,27 @@ def runtime_work_dir() -> Path:
     return project_root() / "data" / "runtime" / "work"
 
 
+import sys
+from pathlib import Path
+
+
 def suggested_exporter_exe() -> Path | None:
-    """First existing candidate path for the upstream YazioExport.exe (user may place it locally)."""
-    root = project_root()
-    candidates = [
-        root / "exporter" / "YazioExport-windows" / "YazioExport.exe",
-        root / "YazioExport.exe",
-    ]
+    """Find YazioExport.exe in dev and in PyInstaller bundle."""
+
+    if getattr(sys, "frozen", False):
+        base = Path(sys._MEIPASS)
+        candidates = [
+            base / "helper" / "YazioExport.exe",
+        ]
+    else:
+        root = project_root()
+        candidates = [
+            root / "helper" / "YazioExport.exe",
+            root / "YazioExport.exe",
+        ]
+
     for path in candidates:
         if path.is_file():
             return path
+
     return None

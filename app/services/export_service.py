@@ -17,6 +17,7 @@ class ExportService:
         if not settings.exporter_exe.exists():
             raise FileNotFoundError(f"Yazio exporter not found: {settings.exporter_exe}")
 
+        cwd = runtime_work_dir()
         work_dir = runtime_work_dir()
         work_dir.mkdir(parents=True, exist_ok=True)
 
@@ -35,6 +36,8 @@ class ExportService:
                 str(token_file),
             ],
             check=True,
+            cwd=str(cwd),
+            creationflags=subprocess.CREATE_NO_WINDOW
         )
 
         logger("Exporting diary data...")
@@ -54,6 +57,8 @@ class ExportService:
                 str(days_file),
             ],
             check=True,
+            cwd=str(cwd),
+            creationflags=subprocess.CREATE_NO_WINDOW
         )
 
         logger("Exporting product data...")
@@ -69,6 +74,8 @@ class ExportService:
                 str(products_file),
             ],
             check=True,
+            cwd=str(cwd),
+            creationflags=subprocess.CREATE_NO_WINDOW
         )
 
         logger("Building report tables...")

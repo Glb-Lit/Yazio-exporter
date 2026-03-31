@@ -79,7 +79,9 @@ class ExportWorker(QThread):
 class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
-        self.setWindowTitle("Nutrition export to Excel")
+        self.setWindowTitle("Yazio export to Excel")
+        if ICON_PATH.is_file():
+            self.setWindowIcon(QIcon(str(ICON_PATH)))
         # Fixed window size so layout always looks the same.
         self.setFixedSize(460, 520)
 
@@ -290,7 +292,7 @@ class MainWindow(QMainWindow):
                 self,
                 "YazioExport.exe not found",
                 "Place YazioExport.exe next to this app or under:\n"
-                "  exporter\\YazioExport-windows\\YazioExport.exe\n\n"
+                "  helper\\YazioExport.exe\n\n"
                 "Build or download it from the Yazio Exporter project, then try again.",
             )
             return
