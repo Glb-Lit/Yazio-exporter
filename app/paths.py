@@ -16,10 +16,12 @@ def project_root() -> Path:
         return Path(sys.executable).resolve().parent
     return Path(__file__).resolve().parent.parent
 
+def tmp_files() -> Path:
+    return project_root() / "data_tmp"
 
 def runtime_work_dir() -> Path:
     """Fixed workspace for YazioExport.exe (token, days.json, products.json)."""
-    return project_root() / "data" / "runtime" / "work"
+    return project_root() / "data_tmp" / "runtime" / "work"
 
 
 import sys

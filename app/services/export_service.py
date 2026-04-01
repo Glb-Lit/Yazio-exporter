@@ -1,9 +1,10 @@
+import shutil
 import subprocess
 from pathlib import Path
 from typing import Callable
 
 from app.config import ExportSettings
-from app.paths import runtime_work_dir
+from app.paths import runtime_work_dir, tmp_files
 from app.services.excel_service import build_excel_report
 from app.services.parser_service import parse_reports
 
@@ -90,4 +91,5 @@ class ExportService:
         )
 
         logger(f"Done: {settings.output_xlsx}")
+        shutil.rmtree(tmp_files(), ignore_errors=True)
         return settings.output_xlsx
