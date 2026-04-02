@@ -32,7 +32,7 @@ Export result examples:
 
 ### For users
 
-1. Download the latest release `.exe` from the [Releases page](https://github.com/Glb-Lit/Yazio-exporter/releases/download/v1.0.0/YazioExporter.exe)
+1. Download the latest release `.exe` from the [Releases page](https://github.com/Glb-Lit/Yazio-exporter/releases/tag/v1.0.1)
 2. Launch `YazioExporter.exe`
 3. Enter your Yazio email and password
 4. Choose the output folder in `Save report to` if needed
@@ -49,7 +49,7 @@ After the export finishes, the generated Excel file will be saved to the selecte
 
 ### Installation
 
-1. Download the release source archive: [v1.0.0.tar.gz](https://github.com/Glb-Lit/Yazio-exporter/archive/refs/tags/v1.0.0.tar.gz)
+1. Download the release source archive from the [Releases page](https://github.com/Glb-Lit/Yazio-exporter/releases/tag/v1.0.1)
 2. Install dependencies:
 
 ```bash
