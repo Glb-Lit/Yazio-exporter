@@ -298,7 +298,7 @@ class MainWindow(QMainWindow):
             return
 
         today = date.today()
-        date_from = f"{today.year}-01-01"
+        date_from = f"2012-01-01"
         date_to = today.isoformat()
         settings = ExportSettings(
             exporter_exe=exporter_path,
