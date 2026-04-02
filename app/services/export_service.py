@@ -41,7 +41,7 @@ class ExportService:
             creationflags=subprocess.CREATE_NO_WINDOW
         )
 
-        logger("Exporting diary data...")
+        logger("Exporting diary data... (it may take some time)")
         subprocess.run(
             [
                 str(settings.exporter_exe),
